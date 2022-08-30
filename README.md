@@ -6,7 +6,9 @@
   
 例(基于STM32 HAL库):
 
-...
+//...
+
+
 void _oledSelect(OLEDSelect_enum select){
       HAL_GPIO_WritePin(OLED_CS_GPIO_Port, OLED_CS_Pin, (GPIO_PinState)select);
 }
@@ -22,7 +24,8 @@ void _oledReset(OLEDRst_enum rst){
 unsigned char _oledSendDataDMA(unsigned char *pData, unsigned short len){
     return HAL_SPI_Transmit_DMA(&hspi1, pData, len);
 }
-...
+
+//...
 
 
 int main(void)
