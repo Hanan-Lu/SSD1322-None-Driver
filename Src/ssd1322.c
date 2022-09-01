@@ -64,9 +64,9 @@ unsigned char OLED_WriteByte(OLEDDataType_enum dataType, unsigned char pdat)
     _OLEDInitstructure.pSelect(OLED_SELECT);
     _OLEDInitstructure.pDataType(dataType);
 #if USE_DMA
-    retval = _OLEDInitstructure.pWriteDataDMA(&pdat, 1);
+    retval = _OLEDInitstructure.pWriteDataDMA(&pdat, 5);
 #else
-    retval = _OLEDInitstructure.pWriteDate(pdat, 1, 5);
+    retval = _OLEDInitstructure.pWriteDate(&pdat, 1, 5);
     _OLEDInitstructure.pSelect(OLED_NOTSELECT);
 #endif
     return retval;
@@ -262,7 +262,11 @@ unsigned char OLED_Init(OLEDInitStruct *oled)
     _OLEDInitstructure.pDelayms = oled->pDelayms;
     _OLEDInitstructure.pReset = oled->pReset;
     _OLEDInitstructure.pSelect = oled->pSelect;
+#if USE_DMA
     _OLEDInitstructure.pWriteDataDMA = oled->pWriteDataDMA;
+#else
+    _OLEDInitstructure.pWriteDate = oled->pWriteDate;
+#endif
 
     _OLEDInitstructure.pReset(OLED_RESET);
     _OLEDInitstructure.pDelayms(10);
